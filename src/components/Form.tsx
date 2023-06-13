@@ -19,13 +19,21 @@ const Form = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input type="text" value={country} onChange={handleChange} className="" />
-      <button
-        onClick={() => {}}
-        className="p-2 bg-cyan-900 text-white rounded-lg"
-      >
-        Search
-      </button>
+      <div className="flex">
+      <input 
+        type="text" 
+        value={country}  
+        onChange={handleChange}
+        className="rounded-md outline-none py-1 px-2" 
+        placeholder="Search a weather..."
+        />
+        <button
+          onClick={() => {}}
+          className="py-1 px-2 bg-cyan-900 text-white rounded-lg ml-1 inline-block"
+          >
+           Search
+        </button>
+      </div>
     </form>
   );
 };

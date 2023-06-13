@@ -3,3 +3,6 @@
 @tailwind utilities;
 
 
+.min-h-550px {
+  min-height: 550px;
+}
