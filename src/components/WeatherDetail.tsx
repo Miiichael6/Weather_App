@@ -9,7 +9,9 @@ const WeatherDetail = () => {
   const errorMessage = useAppSelector((state) => state.weather.errorMessage);
   const loader = useAppSelector((state) => state.weather.loading);
 
+  // const [number, setNumber] = useState<number>(0);
   const [number, setNumber] = useState<number>(0);
+
 
   return (
     <div className="p-4">
