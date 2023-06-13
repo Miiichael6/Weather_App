@@ -2,16 +2,11 @@ import { useAppSelector } from "../hooks/reduxHooks";
 import { weatherImgs } from "../icons/icons.ts";
 import ErrorMessage from "./ErrorMessage.tsx";
 import Loader from "./Loader.tsx";
-import { useState } from 'react';
 
 const WeatherDetail = () => {
   const weatherInfo = useAppSelector((state) => state.weather.weather);
   const errorMessage = useAppSelector((state) => state.weather.errorMessage);
   const loader = useAppSelector((state) => state.weather.loading);
-
-  // const [number, setNumber] = useState<number>(0);
-  const [number, setNumber] = useState<number>(0);
-
 
   return (
     <div className="p-4">
