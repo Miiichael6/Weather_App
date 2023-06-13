@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { getWeatherApi } from "../app/features/weaherSlice/weatherThunks";
 import { useAppDispatch } from "../hooks/reduxHooks";
 
@@ -8,12 +8,12 @@ const Form = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
-
     setCountry(value);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     dispatch(getWeatherApi(country));
   };
 
