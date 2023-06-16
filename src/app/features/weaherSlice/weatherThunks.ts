@@ -15,14 +15,24 @@ export const getWeatherApi = (country: string) => {
       
     } catch (error: any) {
       // const errorData: string = error.response.data.message;
-      const errorCode: number = error.response.status;
+      const errorCode: number = error.response?.status;
       const customMessage404 = `Sorry, but country or city with name "${country}" does not exist, try another, please.`;
       const customMessage400 = `You need to write a country or a city in the Search Bar...`;
+      const customMessageNetworkError = "You are not conected to internet :(, Sorry";
 
-      if(errorCode === 400) dispatch(errorHandlerWeather(customMessage400))
+      if(errorCode === 400) {
+        dispatch(errorHandlerWeather(customMessage400))
+      }
 
-      if(errorCode === 404) dispatch(errorHandlerWeather(customMessage404));
+      if(errorCode === 404) {
+        dispatch(errorHandlerWeather(customMessage404));
+      }
+
+      console.log(error)
       
+      if(error.message === "Network Error") {
+        dispatch(errorHandlerWeather(customMessageNetworkError))
+      }
     }
   }
 }

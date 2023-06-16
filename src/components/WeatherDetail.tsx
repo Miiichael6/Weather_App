@@ -1,62 +1,95 @@
-import { useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
 import { weatherImgs } from "../icons/icons.ts";
-import {motion, AnimatePresence} from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import ErrorMessage from "./ErrorMessage.tsx";
 import Loader from "./Loader.tsx";
+import WeatherTemperatureDetail from "./WeatherTemperatureDetail";
+import WeatherUbicationDetail from "./WeatherUbicationDetail.tsx";
+import WeatherOptionalData from "./WeatherOptionalData.tsx";
+import { setFalseData } from "../app/features/weaherSlice/weatherSlice.ts";
 
 const boxAnimation = {
-  key:"box",
-  initial :{y: "50%", opacity: 0, scale: 0.5},
-  animate:{y: 0, opacity: 1, scale: 1},
-  exit:{y: "100px", opacity: 0, transition: {duration: 0.2}, scale: .1}
-}
+  key: "box",
+  initial: { y: "50%", opacity: 0, scale: 0.5 },
+  animate: { y: 0, opacity: 1, scale: 1 },
+  exit: { y: "100px", opacity: 0, transition: { duration: 0.2 }, scale: 0.1 },
+  className: "bg-red-400 rounded-md p-4",
+};
 
 const WeatherDetail = () => {
   const weatherInfo = useAppSelector((state) => state.weather.weather);
   const errorMessage = useAppSelector((state) => state.weather.errorMessage);
   const loader = useAppSelector((state) => state.weather.loading);
+  const dispatch = useAppDispatch();
 
+  const handleSetFalseData = () => {
+    console.log("aqui");
+    dispatch(setFalseData());
+  };
   console.log(weatherInfo);
 
   return (
     <div className="p-4 relative w-full">
-      {!loader && !errorMessage && !weatherInfo.name && <p className="text-green-300 text-xl text-center">Nothing here yet...</p>}
-      <div 
-      // className="flex justify-end items-center"
-      >
-        <div className="absolute w-full flex justify-center items-center left-0 h-full">
+      {!loader && !errorMessage && !weatherInfo.name && (
+        <div>
+          <p className="text-green-300 text-md text-center">
+            Search the weather that you want to know
+          </p>
+          <button
+            className="p-1 bg-slate-50 rounded-md cursor-pointer z-10 absolute"
+            onClick={() => handleSetFalseData()}
+          >
+            set false data
+          </button>
+        </div>
+      )}
+      <div>
+        <div className="absolute w-full flex justify-center items-center left-0 h-full p-9">
           {loader && <Loader />}
         </div>
       </div>
       <AnimatePresence>
-      {weatherInfo.name ? (
-          <motion.div
-           {...boxAnimation}
-           className="bg-red-400 rounded-md p-4">
-           <h1 className="font-bold text-3xl text-zinc-200">
-             {weatherInfo.name}
-           </h1>
-           <p>Presure: {weatherInfo.main.pressure}</p>
-           <p>Humidity: {weatherInfo.main.humidity}</p>
-           <p>General Temperature: {weatherInfo.main.temp}</p>
-           <p>Time zone: {weatherInfo.timezone}</p>
-           <p>Max. Temperature: {weatherInfo.main.temp_max}</p>
-           <p>Min. Temperature: {weatherInfo.main.temp_min}</p>
-           <p>Lat: {weatherInfo.coord.lat}</p>
-           <p>Country Id: {weatherInfo.id}</p>
-           <p>Lon: {weatherInfo.coord.lon}</p>
-           <div className="h-20 w-20">
-             <img
-               src={weatherImgs[`${weatherInfo.weather[0].icon!}` || "unknown"]}
-               alt={weatherInfo.name}
-               className="w-full"
-               />
-           </div>
-           </motion.div>
-      ) : (
-        <ErrorMessage message={errorMessage} />
+        {weatherInfo.name ? (
+          <motion.div {...boxAnimation}>
+            <div>
+              <h1 className="font-bold text-5xl text-zinc-200 text-center">
+                {weatherInfo.name}
+              </h1>
+            </div>
+            <div className="flex justify-center">
+              <div className="h-24 w-24">
+                <img
+                  src={
+                    weatherImgs[`${weatherInfo.weather[0].icon!}` || "unknown"]
+                  }
+                  alt={weatherInfo.name}
+                  className="w-full"
+                />
+              </div>
+            </div>
+            <div className="flex justify-center">
+              <div>
+              <WeatherTemperatureDetail
+                generalTemp={weatherInfo.main.temp}
+                maxTemp={weatherInfo.main.temp_max}
+                minTemp={weatherInfo.main.temp_min}
+                />
+              <WeatherOptionalData
+                pressure={weatherInfo.main.pressure}
+                humidity={weatherInfo.main.humidity}
+                />
+              <WeatherUbicationDetail
+                lat={weatherInfo.coord.lat}
+                lon={weatherInfo.coord.lon}
+                />
+                </div>
+            </div>
+            <p className="text-right pr-1 py-2">Country Id: {weatherInfo.id}</p>
+          </motion.div>
+        ) : (
+          <ErrorMessage message={errorMessage} />
         )}
-        </AnimatePresence>
+      </AnimatePresence>
     </div>
   );
 };

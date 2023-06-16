@@ -46,7 +46,7 @@ export const weatherSlice = createSlice({
     },
     setWeather(state, { payload }: PayloadAction<WeatherInterface>) {
       state.errorMessage = "";
-      
+
       if (payload.name) {
         state.loading = false;
 
@@ -64,10 +64,41 @@ export const weatherSlice = createSlice({
       state.weather = initialState.weather;
       state.errorMessage = payload;
     },
+
+    setFalseData(state) {
+      state.weather = {
+        coord: {
+          lon: 1321,
+          lat: 1321,
+        },
+        weather: [
+         { icon: "unknown", id: 12321, main: "", description: "" }
+        ],
+        main: {
+          temp: 12312,
+          temp_min: 1321,
+          temp_max: 1231,
+          pressure: 32131,
+          humidity: 312123,
+          sea_level: 123123,
+          grnd_level: 3123,
+          feels_like: 31231,
+        },
+        visibility: 32131,
+        timezone: 321321,
+        id: 312312,
+        name: "Michael",
+        cod: 3213,
+      };
+    },
   },
 });
 
-export const { setWeather, loadingApiRequest, errorHandlerWeather } =
-  weatherSlice.actions;
+export const {
+  setWeather,
+  loadingApiRequest,
+  errorHandlerWeather,
+  setFalseData,
+} = weatherSlice.actions;
 
 export default weatherSlice.reducer;

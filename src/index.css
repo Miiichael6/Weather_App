@@ -6,3 +6,7 @@
 .min-h-550px {
   min-height: 550px;
 }
+
+.max-w-600px {
+  max-width: 600px;
+}
