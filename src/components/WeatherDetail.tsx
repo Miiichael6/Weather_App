@@ -10,7 +10,7 @@ import { setFalseData } from "../app/features/weaherSlice/weatherSlice.ts";
 
 const boxAnimation = {
   key: "box",
-  initial: { y: "50%", opacity: 0, scale: 0.5 },
+  initial: { y: "20%", opacity: 0, scale: 0.5 },
   animate: { y: 0, opacity: 1, scale: 1 },
   exit: { y: "100px", opacity: 0, transition: { duration: 0.2 }, scale: 0.1 },
   className: "bg-red-400 rounded-md p-4",
@@ -26,7 +26,6 @@ const WeatherDetail = () => {
     console.log("aqui");
     dispatch(setFalseData());
   };
-  console.log(weatherInfo);
 
   return (
     <div className="p-4 relative w-full">

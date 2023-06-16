@@ -1,7 +1,7 @@
 
 type Props = {}
 
-export const About = (props: Props) => {
+export const About = ({}: Props) => {
   return (
     <div>About</div>
   )
