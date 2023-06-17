@@ -1,5 +1,5 @@
 import Form from "./Form";
-import weather from "../assets/logo.png";
+import weather from "../imgs/logo.png";
 
 const Header = () => {
   return (

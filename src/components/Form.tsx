@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { getWeatherApi } from "../app/features/weaherSlice/weatherThunks";
-import { useAppDispatch, useAppSelector } from "../hooks/reduxHooks";
+import { useAppDispatch } from "../hooks/reduxHooks";
 
 const Form = () => {
-  // const weatherName = useAppSelector(state => state.weather.weather.name)
   const [country, setCountry] = useState<string>("");
   const dispatch = useAppDispatch();
 
