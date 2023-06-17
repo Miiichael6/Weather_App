@@ -1,14 +1,14 @@
-import {Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { About, Home, NotFoundPage } from "../screens";
 
 const AppRouter = () => {
   return (
     <Routes>
-      <Route path="/" element={<Home/>}/>
-      <Route path="/about" element={<About/>}/>
-      <Route path="*" element={<NotFoundPage />}/>
+      <Route path="/" element={<Home />} />
+      <Route path="/about" element={<About />} />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
-  )
-}
+  );
+};
 
-export default AppRouter
+export default AppRouter;
